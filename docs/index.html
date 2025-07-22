@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Commands - Jupyter Notebook</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the Inter font and overall body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #282c34; /* Charcoal background */
+            color: #abb2bf; /* Soft Grayish Blue for main text (description) */
+        }
+        /* Styling for code blocks to make them look clean and copyable */
+        pre {
+            background-color: #21252b; /* Very Dark Blue-Gray for code background */
+            padding: 1rem;
+            border-radius: 0.5rem; /* Rounded corners */
+            overflow-x: auto; /* Enable horizontal scrolling for long lines */
+            margin-top: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+            font-size: 0.9rem; /* Slightly larger font size for code */
+            line-height: 1.6;
+            border: 1px solid #3a404a; /* Subtle dark border for code blocks */
+            color: #d4d4d4; /* Off-white for code text */
+        }
+        code {
+            font-family: 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+            background-color: #495057; /* Muted Dark Gray for inline code background */
+            padding: 0.15rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            color: #fcd34d; /* Pastel Yellow for inline code text */
+        }
+        /* Style for section headers */
+        h2 {
+            border-bottom: 1px solid #4a5568; /* Dark border for categories */
+            padding-bottom: 0.75rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            color: #8be9fd; /* Pastel Cyan for category headers */
+            font-weight: 600; /* Semi-bold */
+        }
+        /* Style for individual command headers */
+        h3 {
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: #a5d6a7; /* Pastel Light Green for command names */
+            font-weight: 600; /* Increased font weight */
+            font-size: 2.25rem; /* Significantly larger font size for commands */
+        }
+        /* Style for the main container to give it a card-like appearance */
+        main {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for dark theme */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8 lg:p-10">
+    <!-- Header Section -->
+    <header class="mb-10 text-center">
+        <div class="flex items-center justify-center mb-6">
+            <h1 class="text-4xl font-extrabold text-white rounded-lg p-3 bg-purple-800 tracking-tight" style="color: #c792ea; background-color: #443355;">magic-cmds</h1>
+        </div>
+        <p class="mt-4 text-xl leading-relaxed max-w-2xl mx-auto" style="color: #abb2bf;">
+            Jupyter Notebook (and IPython) magic commands are powerful, non-standard commands that extend the functionality of the notebook environment beyond pure Python code. They are prefixed with a single percent sign (<code class="font-bold">%</code>) for <span class="font-semibold" style="color: #abb2bf;">line magics</span> (operating on a single line) or a double percent sign (<code class="font-bold">%%</code>) for <span class="font-semibold" style="color: #abb2bf;">cell magics</span> (operating on the entire cell). These commands streamline workflows, enhance interactivity, and provide direct access to system operations, debugging tools, and more.
+        </p>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-4xl mx-auto p-8 sm:p-10 rounded-xl" style="background-color: #3a404a;">
+
+        <!-- Category: Information and Help -->
+        <h2 class="text-2xl font-semibold">I. Information and Help</h2>
+        <p class="mb-6" style="color: #abb2bf;">These commands help you discover and understand other magic commands and IPython features.</p>
+
+        <section>
+            <h3>%lsmagic</h3>
+            <p style="color: #abb2bf;">Lists all available magic commands (both line and cell magics). This is often the first command to run when exploring magic functionalities.</p>
+            <pre><code># No specific Python code to run with %lsmagic itself, as it lists magics.
+%lsmagic</code></pre>
+        </section>
+
+        <section>
+            <h3>%quickref</h3>
+            <p style="color: #abb2bf;">Displays a quick reference guide to IPython's features, including a summary of common magic commands.</p>
+            <pre><code># No specific Python code to run with %quickref itself.
+%quickref</code></pre>
+        </section>
+
+        <section>
+            <h3>%magic</h3>
+            <p style="color: #abb2bf;">Provides a more general description of available magic functions, with some examples.</p>
+            <pre><code># No specific Python code to run with %magic itself.
+%magic</code></pre>
+        </section>
+
+        <section>
+            <h3>%&lt;command&gt;?</h3>
+            <p style="color: #abb2bf;">Appending <code class="font-bold">%</code> to any magic command (e.g., <code class="font-bold">%timeit?</code>) displays its docstring, providing detailed information about its usage, arguments, and options.</p>
+            <pre><code># Get help on the %timeit magic command
+%timeit?</code></pre>
+        </section>
+
+        <section>
+            <h3>%&lt;command&gt;??</h3>
+            <p style="color: #abb2bf;">Appending <code class="font-bold">??</code> to a magic command displays its source code.</p>
+            <pre><code># View the source code of the %lsmagic command
+%lsmagic??</code></pre>
+        </section>
+
+        <!-- Category: Execution and Timing -->
+        <h2 class="text-2xl font-semibold">II. Execution and Timing</h2>
+        <p class="mb-6" style="color: #abb2bf;">These commands are crucial for profiling and optimizing your code, helping you understand execution speed.</p>
+
+        <section>
+            <h3>%time</h3>
+            <p style="color: #abb2bf;">Measures the execution time of a single Python statement or expression.</p>
+            <pre><code># Time a simple list creation
+my_list = list(range(100000))
+%time sum(my_list)</code></pre>
+        </section>
+
+        <section>
+            <h3>%%time</h3>
+            <p style="color: #abb2bf;">Measures the execution time of the entire cell.</p>
+            <pre><code>%%time
+# Multi-line code to be timed
+import numpy as np
+data = np.random.rand(1000, 1000)
+result = np.linalg.det(data)</code></pre>
+        </section>
+
+        <section>
+            <h3>%timeit</h3>
+            <p style="color: #abb2bf;">Measures the execution time of a single line of code multiple times (typically 7 runs with 1,000 to 100,000 loops each) to get a more accurate average.</p>
+            <pre><code># Compare performance of list comprehension vs map
+%timeit [x**2 for x in range(1000)]
+%timeit list(map(lambda x: x**2, range(1000)))</code></pre>
+        </section>
+
+        <section>
+            <h3>%%timeit</h3>
+            <p style="color: #abb2bf;">Measures the execution time of the entire cell multiple times for more robust results.</p>
+            <pre><code>%%timeit
+# Define and call a function within the timed block
+def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+fibonacci(20)</code></pre>
+        </section>
+
+        <section>
+            <h3>%prun</h3>
+            <p style="color: #abb2bf;">Runs a statement through the Python code profiler (<code class="font-bold">cProfile</code>). Useful for identifying performance bottlenecks within your code.</p>
+            <pre><code># Define a function with a potential bottleneck
+def slow_function():
+    total = 0
+    for i in range(10000):
+        for j in range(1000):
+            total += i * j
+    return total
+
+%prun slow_function()</code></pre>
+        </section>
+
+        <section>
+            <h3>%run</h3>
+            <p style="color: #abb2bf;">Executes a Python script (<code class="font-bold">.py</code> file) within the IPython environment. Any functions or variables defined in the script become available in your current session.</p>
+            <pre><code># First, create a dummy Python file named 'my_script.py'
+# %%writefile my_script.py
+# def greet(name):
+#     print(f"Hello, {name}!")
+# greet("World")
+
+# Then, run the script
+%run my_script.py
+# Now, the 'greet' function is available in the notebook
+greet("Jupyter User")</code></pre>
+        </section>
+
+        <!-- Category: Environment and Workspace Management -->
+        <h2 class="text-2xl font-semibold">III. Environment and Workspace Management</h2>
+        <p class="mb-6" style="color: #abb2bf;">These commands help you manage your Python environment and the Jupyter Notebook's state, including variables and history.</p>
+
+        <section>
+            <h3>%who</h3>
+            <p style="color: #abb2bf;">Lists all interactive variables (names only) currently defined in the namespace.</p>
+            <pre><code>a = 10
+b = "hello"
+my_list = [1, 2, 3]
+%who</code></pre>
+        </section>
+
+        <section>
+            <h3>%whos</h3>
+            <p style="color: #abb2bf;">Lists all interactive variables with more details, including their type and value.</p>
+            <pre><code>a = 10
+b = "hello"
+my_list = [1, 2, 3]
+%whos</code></pre>
+        </section>
+
+        <section>
+            <h3>%who_ls</h3>
+            <p style="color: #abb2bf;">Returns a sorted list of all interactive variables.</p>
+            <pre><code>x = 1
+y = 2
+z = 3
+%who_ls</code></pre>
+        </section>
+
+        <section>
+            <h3>%xdel</h3>
+            <p style="color: #abb2bf;">Deletes a variable and attempts to clear it from IPython's machinery, useful for freeing up memory.</p>
+            <pre><code>import numpy as np
+large_array = np.random.rand(10000, 10000)
+print(f"Size of large_array: {large_array.nbytes / (1024**2):.2f} MB")
+%xdel large_array
+# large_array is now deleted and memory freed</code></pre>
+        </section>
+
+        <section>
+            <h3>%reset</h3>
+            <p style="color: #abb2bf;">Resets the entire IPython namespace, deleting all variables and imported modules. Use with caution! Can be used with <code class="font-bold">-f</code> to force without confirmation.</p>
+            <pre><code># Define some variables
+var1 = 10
+var2 = "test"
+import pandas as pd
+df = pd.DataFrame({'col': [1,2]})
+
+# Reset the namespace (this will clear var1, var2, df, and pandas import)
+%reset -f
+# Now, trying to access var1 will result in an error
+# print(var1) # This would raise NameError</code></pre>
+        </section>
+
+        <section>
+            <h3>%hist / %history</h3>
+            <p style="color: #abb2bf;">Shows the history of executed commands. You can specify arguments like <code class="font-bold">-n</code> for the last <code class="font-bold">n</code> commands.</p>
+            <pre><code># Run a few commands first
+print("Hello")
+x = 5
+y = x * 2
+
+# View the last 3 commands in history
+%history -n 3</code></pre>
+        </section>
+
+        <section>
+            <h3>%env</h3>
+            <p style="color: #abb2bf;">Displays, sets, or deletes environment variables.</p>
+            <pre><code># Display current environment variables
+%env
+
+# Set a new environment variable
+%env MY_CUSTOM_VAR=my_value
+
+# Access the variable in Python
+import os
+print(os.environ.get("MY_CUSTOM_VAR"))</code></pre>
+        </section>
+
+        <section>
+            <h3>%automagic</h3>
+            <p style="color: #abb2bf;">Toggles whether magic commands require the leading <code class="font-bold">%</code> for line magics. When "on," you can type <code class="font-bold">timeit</code> instead of <code class="font-bold">%timeit</code>. (Default is usually "on" in Jupyter).</p>
+            <pre><code># Check current automagic state
+%automagic
+
+# Toggle automagic off
+%automagic off
+# Now you'd need to use %timeit explicitly
+# timeit [1,2,3] # This would fail
+
+# Toggle automagic on again
+%automagic on
+# Now you can use timeit without % again
+# timeit [1,2,3] # This would work</code></pre>
+        </section>
+
+        <!-- Category: File and System Operations -->
+        <h2 class="text-2xl font-semibold">IV. File and System Operations</h2>
+        <p class="mb-6" style="color: #abb2bf;">These commands allow you to interact with the file system directly from your notebook, similar to shell commands.</p>
+
+        <section>
+            <h3>%cd</h3>
+            <p style="color: #abb2bf;">Changes the current working directory.</p>
+            <pre><code># Print current directory
+%pwd
+# Change to a different directory (e.g., a subfolder)
+# %cd my_subfolder
+# Change back to the parent directory
+%cd ..
+%pwd</code></pre>
+        </section>
+
+        <section>
+            <h3>%pwd</h3>
+            <p style="color: #abb2bf;">Prints the current working directory.</p>
+            <pre><code>%pwd</code></pre>
+        </section>
+
+        <section>
+            <h3>%ls</h3>
+            <p style="color: #abb2bf;">Lists the contents of the current directory.</p>
+            <pre><code># List all files and directories
+%ls
+# List with long format (details)
+%ls -l</code></pre>
+        </section>
+
+        <section>
+            <h3>%cat</h3>
+            <p style="color: #abb2bf;">Displays the content of a file.</p>
+            <pre><code># Create a dummy file first
+# %%writefile test_file.txt
+# Hello, this is a test file.
+# It has multiple lines.
+
+# Display its content
+%cat test_file.txt</code></pre>
+        </section>
+
+        <section>
+            <h3>%cp</h3>
+            <p style="color: #abb2bf;">Copies files. (Similar to shell <code class="font-bold">cp</code>)</p>
+            <pre><code># Create source file
+# %%writefile source.txt
+# This is the source content.
+
+# Copy it to a new file
+%cp source.txt destination.txt
+%ls</code></pre>
+        </section>
+
+        <section>
+            <h3>%mv</h3>
+            <p style="color: #abb2bf;">Moves/renames files. (Similar to shell <code class="font-bold">mv</code>)</p>
+            <pre><code># Create a file to rename
+# %%writefile old_name.txt
+# Content of the old file.
+
+# Rename the file
+%mv old_name.txt new_name.txt
+%ls</code></pre>
+        </section>
+
+        <section>
+            <h3>%rm</h3>
+            <p style="color: #abb2bf;">Removes files. (Similar to shell <code class="font-bold">rm</code>)</p>
+            <pre><code># Create a file to remove
+# %%writefile to_delete.txt
+# This file will be deleted.
+
+# Remove the file
+%rm to_delete.txt
+%ls</code></pre>
+        </section>
+
+        <section>
+            <h3>%mkdir</h3>
+            <p style="color: #abb2bf;">Creates a directory. (Similar to shell <code class="font-bold">mkdir</code>)</p>
+            <pre><code>%mkdir new_folder
+%ls</code></pre>
+        </section>
+
+        <section>
+            <h3>%rmdir</h3>
+            <p style="color: #abb2bf;">Removes an empty directory. (Similar to shell <code class="font-bold">rmdir</code>)</p>
+            <pre><code># Create and then remove an empty folder
+%mkdir empty_folder
+%rmdir empty_folder
+%ls</code></pre>
+        </section>
+
+        <section>
+            <h3>%load</h3>
+            <p style="color: #abb2bf;">Loads the contents of an external file into the current cell.</p>
+            <pre><code># Create a Python script
+# %%writefile my_module.py
+# def calculate_square(x):
+#     return x * x
+# print("Module loaded!")
+
+# Load the script into the current cell (it will appear as code)
+%load my_module.py
+# After loading, you can execute the cell to define the function
+# print(calculate_square(5))</code></pre>
+        </section>
+
+        <section>
+            <h3>%%writefile</h3>
+            <p style="color: #abb2bf;">Writes the contents of the current cell to an external file. If the file exists, it overwrites it unless <code class="font-bold">-a</code> (append) is used.</p>
+            <pre><code>%%writefile my_output.txt
+This is the first line.
+This is the second line.
+# Check the file content using %cat or your file system after running this cell.</code></pre>
+        </section>
+
+        <section>
+            <h3>%pycat</h3>
+            <p style="color: #abb2bf;">Displays the syntax-highlighted content of a Python file.</p>
+            <pre><code># Create a Python file first
+# %%writefile simple_func.py
+# def add_numbers(a, b):
+#     """Adds two numbers."""
+#     return a + b
+
+# Display its content with syntax highlighting
+%pycat simple_func.py</code></pre>
+        </section>
+
+        <!-- Category: Display and Output Control -->
+        <h2 class="text-2xl font-semibold">V. Display and Output Control</h2>
+        <p class="mb-6" style="color: #abb2bf;">These commands influence how output is displayed in the notebook, especially for visualizations and rich media.</p>
+
+        <section>
+            <h3>%matplotlib inline</h3>
+            <p style="color: #abb2bf;">(Very common for data visualization) Ensures that Matplotlib plots are displayed directly within the notebook cells.</p>
+            <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+%matplotlib inline
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+plt.plot(x, y)
+plt.title("Sine Wave (Inline)")
+plt.show()</code></pre>
+        </section>
+
+        <section>
+            <h3>%matplotlib notebook</h3>
+            <p style="color: #abb2bf;">Provides interactive Matplotlib plots within the notebook (allowing zooming, panning, etc.).</p>
+            <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+%matplotlib notebook
+x = np.linspace(0, 10, 100)
+y = np.cos(x)
+plt.plot(x, y)
+plt.title("Cosine Wave (Interactive)")
+plt.show()</code></pre>
+        </section>
+
+        <section>
+            <h3>%%html</h3>
+            <p style="color: #abb2bf;">Renders the cell content as HTML.</p>
+            <pre><code>%%html
+&lt;h1 style="color: #6ee7b7;"&gt;Hello from HTML in Jupyter!&lt;/h1&gt;
+&lt;p&gt;This is a &lt;strong style="color: #93c5fd;"&gt;paragraph&lt;/strong&gt; with some &lt;em style="color: #fcd34d;"&gt;emphasized&lt;/em&gt; text.&lt;/p&gt;
+&lt;button onclick="alert('Button clicked!')" style="background-color: #c792ea; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;"&gt;Click Me&lt;/button&gt;</code></pre>
+        </section>
+
+        <section>
+            <h3>%%javascript / %%js</h3>
+            <p style="color: #abb2bf;">Executes the cell content as JavaScript.</p>
+            <pre><code>%%javascript
+// JavaScript code to run in the browser context
+console.log("Hello from JavaScript!");
+element.append(document.createTextNode('This text was added by JavaScript!'));</code></pre>
+        </section>
+
+        <section>
+            <h3>%%latex</h3>
+            <p style="color: #abb2bf;">Renders the cell content as LaTeX.</p>
+            <pre><code>%%latex
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+The quadratic formula is:
+$$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+\end{document}</code></pre>
+        </section>
+
+        <section>
+            <h3>%%markdown</h3>
+            <p style="color: #abb2bf;">Renders the cell content as Markdown text. (Typically, you'd use a Markdown cell type, but this offers programmatic control).</p>
+            <pre><code>%%markdown
+# My Markdown Title
+This is a paragraph in **Markdown**.
+- Item 1
+- Item 2
+```python
+print("Hello from a code block in Markdown")
+```</code></pre>
+        </section>
+
+        <section>
+            <h3>%%svg</h3>
+            <p style="color: #abb2bf;">Renders the cell content as SVG.</p>
+            <pre><code>%%svg
+&lt;svg width="200" height="100"&gt;
+  &lt;rect x="10" y="10" width="80" height="80" fill="#6ee7b7" /&gt;
+  &lt;circle cx="150" cy="50" r="40" fill="#93c5fd" /&gt;
+&lt;/svg&gt;</code></pre>
+        </section>
+
+        <section>
+            <h3>%%capture</h3>
+            <p style="color: #abb2bf;">Runs the cell but captures all its output (stdout, stderr, rich display calls), preventing it from being displayed. Useful for suppressing verbose output or for programmatic handling of output.</p>
+            <pre><code>%%capture captured_output
+# This print statement's output will be captured
+print("This message will not appear directly in the output cell.")
+x = 10 + 20
+print(f"The value of x is {x}")
+
+# You can access the captured output later
+# captured_output.stdout
+# captured_output.stderr
+# captured_output.outputs</code></pre>
+        </section>
+
+        <!-- Category: Debugging -->
+        <h2 class="text-2xl font-semibold">VI. Debugging</h2>
+        <p class="mb-6" style="color: #abb2bf;">Commands to help you debug your Python code within the notebook environment.</p>
+
+        <section>
+            <h3>%debug</h3>
+            <p style="color: #abb2bf;">Activates the interactive debugger when an exception occurs.</p>
+            <pre><code>def divide_by_zero(a, b):
+    return a / b
+
+# Run the magic command first, then the problematic code
+%debug
+divide_by_zero(10, 0) # This will trigger the debugger on ZeroDivisionError</code></pre>
+        </section>
+
+        <section>
+            <h3>%pdb</h3>
+            <p style="color: #abb2bf;">Controls the automatic loading of the Python debugger.</p>
+            <pre><code># Turn on automatic pdb
+%pdb on
+
+def problematic_function():
+    x = 10
+    y = 0
+    z = x / y # This will automatically drop into pdb
+
+problematic_function()
+
+# Turn off automatic pdb
+%pdb off</code></pre>
+        </section>
+
+        <!-- Category: External Language Execution -->
+        <h2 class="text-2xl font-semibold">VII. External Language Execution</h2>
+        <p class="mb-6" style="color: #abb2bf;">These cell magics allow you to execute code in other languages directly within a Jupyter cell, provided the necessary interpreter is installed and configured.</p>
+
+        <section>
+            <h3>%%bash / %%sh</h3>
+            <p style="color: #abb2bf;">Runs the cell content as a Bash or shell script.</p>
+            <pre><code>%%bash
+# List files in the current directory
+ls -lh
+
+# Print a message
+echo "Hello from Bash!"
+
+# Run a Python command from bash
+python -c "print('Python from Bash')"</code></pre>
+        </section>
+
+        <section>
+            <h3>%%perl</h3>
+            <p style="color: #abb2bf;">Runs the cell content as Perl code.</p>
+            <pre><code>%%perl
+# Perl code example
+my $name = "World";
+print "Hello, $name from Perl!\n";
+for (my $i = 0; $i < 3; $i++) {
+    print "Loop iteration: $i\n";
+}</code></pre>
+        </section>
+
+        <section>
+            <h3>%%ruby</h3>
+            <p style="color: #abb2bf;">Runs the cell content as Ruby code.</p>
+            <pre><code>%%ruby
+# Ruby code example
+puts "Hello from Ruby!"
+1.upto(3) do |i|
+  puts "Ruby loop: #{i}"
+end</code></pre>
+        </section>
+
+        <section>
+            <h3>%%python / %%python2 / %%python3</h3>
+            <p style="color: #abb2bf;">Explicitly runs the cell content as Python code (useful if you're in a multi-kernel environment or want to specify a Python version).</p>
+            <pre><code>%%python
+# This is standard Python code, explicitly run by the Python interpreter
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+print(f"Factorial of 5 is: {factorial(5)}")</code></pre>
+        </section>
+
+        <section>
+            <h3>%%script</h3>
+            <p style="color: #abb2bf;">Allows executing a script using a specified interpreter.</p>
+            <pre><code>%%script python
+# This cell will be executed by the 'python' interpreter
+import sys
+print(f"Running with Python interpreter: {sys.version.splitlines()[0]}")
+print("This is a script executed via %%script.")</code></pre>
+        </section>
+
+        <section>
+            <h3>%%sx</h3>
+            <p style="color: #abb2bf;">Executes a shell command and captures its output.</p>
+            <pre><code>%%sx ls -la
+# The output of 'ls -la' will be captured and can be accessed as a list of strings
+# For example, to print the first line of output:
+# print(_sx[0])</code></pre>
+        </section>
+
+        <!-- Category: Miscellaneous / Advanced -->
+        <h2 class="text-2xl font-semibold">VIII. Miscellaneous / Advanced</h2>
+        <p class="mb-6" style="color: #abb2bf;">A collection of other useful and more advanced magic commands.</p>
+
+        <section>
+            <h3>%alias</h3>
+            <p style="color: #abb2bf;">Defines an alias for a system command.</p>
+            <pre><code># Define 'll' as an alias for 'ls -l'
+%alias ll ls -l
+# Now you can use 'll' directly
+ll</code></pre>
+        </section>
+
+        <section>
+            <h3>%alias_magic</h3>
+            <p style="color: #abb2bf;">Creates an alias for an existing line or cell magic.</p>
+            <pre><code># Create 'tm' as an alias for '%timeit'
+%alias_magic tm timeit
+# Now you can use 'tm' instead of '%timeit'
+tm [x for x in range(100)]</code></pre>
+        </section>
+
+        <section>
+            <h3>%bookmark</h3>
+            <p style="color: #abb2bf;">Manages IPython's bookmark system for directories.</p>
+            <pre><code># Go to a directory
+# %cd /tmp
+
+# Bookmark the current directory as 'temp_dir'
+%bookmark temp_dir
+
+# Change to another directory
+# %cd /usr/local
+
+# Jump back to the bookmarked directory
+%cd -b temp_dir
+%pwd</code></pre>
+        </section>
+
+        <section>
+            <h3>%connect_info</h3>
+            <p style="color: #abb2bf;">Displays connection information for the current kernel.</p>
+            <pre><code>%connect_info</code></pre>
+        </section>
+
+        <section>
+            <h3>%config</h3>
+            <p style="color: #abb2bf;">Allows you to configure IPython and Jupyter components.</p>
+            <pre><code># Configure Matplotlib to use inline backend by default
+%config InlineBackend.figure_format = 'retina'
+%config IPKernelApp.pylab='inline' # Ensure inline plotting is enabled</code></pre>
+        </section>
+
+        <section>
+            <h3>%dhist</h3>
+            <p style="color: #abb2bf;">Displays the directory history.</p>
+            <pre><code># Change directories a few times to build history
+# %cd /tmp
+# %cd /var
+# %cd ~
+
+# Display directory history
+%dhist</code></pre>
+        </section>
+
+        <section>
+            <h3>%edit / %ed</h3>
+            <p style="color: #abb2bf;">Opens an external text editor with the specified content (e.g., a function definition or history lines).</p>
+            <pre><code># Define a simple function
+def my_function(x):
+    return x * 2
+
+# Open it in an external editor (requires editor configuration)
+# %edit my_function</code></pre>
+        </section>
+
+        <section>
+            <h3>%gui</h3>
+            <p style="color: #abb2bf;">Enables GUI event loop integration for various GUI toolkits (e.g., <code class="font-bold">qt</code>, <code class="font-bold">tk</code>, <code class="font-bold">wx</code>, <code class="font-bold">gtk3</code>, <code class="font-bold">glut</code>).</p>
+            <pre><code># Example for PyQt (requires PyQt to be installed)
+# import sys
+# from PyQt5.QtWidgets import QApplication, QLabel
+# %gui qt
+
+# app = QApplication(sys.argv)
+# label = QLabel("Hello, PyQt!")
+# label.show()
+# app.exec_() # This would run the GUI event loop</code></pre>
+        </section>
+
+        <section>
+            <h3>%killbgscripts</h3>
+            <p style="color: #abb2bf;">Kills all background scripts launched by the <code class="font-bold">%%script</code> magic.</p>
+            <pre><code># Example: Run a script in the background (this will usually block the cell)
+# %%script bash --bg
+# while true; do echo "Running in background..."; sleep 1; done
+
+# To stop it:
+# %killbgscripts</code></pre>
+        </section>
+
+        <section>
+            <h3>%load_ext</h3>
+            <p style="color: #abb2bf;">Loads an IPython extension by its module name. Many powerful functionalities can be added this way.</p>
+            <pre><code># Load the autoreload extension for automatic code reloading
+%load_ext autoreload
+%autoreload 2 # Enable autoreload for all modules</code></pre>
+        </section>
+
+        <section>
+            <h3>%logoff / %logon / %logstart / %logstate</h3>
+            <p style="color: #abb2bf;">Commands for managing IPython's logging system.</p>
+            <pre><code># Start logging to a file
+%logstart -o my_session_log.py
+
+# Perform some actions
+x = 10
+print(x)
+
+# Check log state
+%logstate
+
+# Turn off logging
+%logoff</code></pre>
+        </section>
+
+        <section>
+            <h3>%paste</h3>
+            <p style="color: #abb2bf;">Pastes code from the clipboard, handling common indentation issues.</p>
+            <pre><code># Imagine you copied this indented code from a website:
+#    def example_func():
+#        print("Hello")
+#        print("World")
+
+# Then in a cell, type:
+# %paste
+# The code will be pasted correctly indented.</code></pre>
+        </section>
+
+        <section>
+            <h3>%cpaste</h3>
+            <p style="color: #abb2bf;">Opens a multi-line prompt to paste code.</p>
+            <pre><code># Type %cpaste and press Enter.
+# Then paste your multi-line code.
+# Type '--' on a new line and press Enter to execute.
+# %cpaste
+# >>> def my_new_func(a, b):
+# ...     return a + b
+# ...
+# --</code></pre>
+        </section>
+
+        <section>
+            <h3>%pinfo / %pinfo2 / %pfile / %pdef / %pdoc / %psource</h3>
+            <p style="color: #abb2bf;">A suite of commands for inspecting objects, functions, and modules, providing information like docstrings, file locations, definitions, and source code.</p>
+            <pre><code># Get information about a built-in function
+%pinfo list.append
+
+# Get source code of a function
+def my_custom_func(x):
+    """This is a custom function."""
+    return x * 10
+%psource my_custom_func</code></pre>
+        </section>
+
+        <section>
+            <h3>%popd / %pushd</h3>
+            <p style="color: #abb2bf;">Manipulate the directory stack (similar to shell <code class="font-bold">pushd</code>/<code class="font-bold">popd</code>).</p>
+            <pre><code># Push current directory to stack and change to /tmp
+%pushd /tmp
+%pwd
+
+# Push /var to stack and change to it
+%pushd /var
+%pwd
+
+# Pop /var from stack, return to /tmp
+%popd
+%pwd
+
+# Pop /tmp from stack, return to original directory
+%popd
+%pwd</code></pre>
+        </section>
+
+        <section>
+            <h3>%reload_ext</h3>
+            <p style="color: #abb2bf;">Reloads an IPython extension.</p>
+            <pre><code># If you modified an extension, you can reload it without restarting the kernel
+# %reload_ext my_custom_extension</code></pre>
+        </section>
+
+        <section>
+            <h3>%unalias</h3>
+            <p style="color: #abb2bf;">Removes an alias.</p>
+            <pre><code># Define an alias first
+%alias myls ls -l
+
+# Check if it exists
+%alias
+
+# Remove the alias
+%unalias myls
+# Now 'myls' will no longer work</code></pre>
+        </section>
+
+        <section>
+            <h3>%xmode</h3>
+            <p style="color: #abb2bf;">Controls the verbosity of exception traceback.</p>
+            <pre><code># Set xmode to 'Plain' for concise tracebacks
+%xmode Plain
+
+# Trigger an error
+1 / 0
+
+# Set xmode back to 'Verbose' for full tracebacks
+%xmode Verbose
+1 / 0</code></pre>
+        </section>
+
+    </main>
+</body>
+</html>
